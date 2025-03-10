@@ -1,4 +1,4 @@
-name: CI Workflow
+name: CI for hexlet-ci-app
 
 on:
   push:
@@ -14,21 +14,19 @@ jobs:
 
     steps:
       - name: Check out the repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
-      - name: Set up environment
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y make
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18.x'
 
       - name: Install dependencies
-        run: |
-          make setup
+        run: npm install
 
       - name: Run tests
-        run: |
-          make test
+        run: npm test
 
-      - name: Run linter
-        run: |
-          make lint
+      - name: Run Hello from Hexlet action
+        uses: hexlet-components/hello-from-hexlet-action@release
+
